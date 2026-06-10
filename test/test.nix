@@ -92,4 +92,9 @@ pkgs.lib.runTests {
 
     expected = "";
   };
+
+  testGetHeadlineLevelBareStarDoesNotCrash = {
+    expr = exclude (_: true) [ "*" "body" ];
+    expected = [ ];
+  };
 }
