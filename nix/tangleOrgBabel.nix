@@ -59,6 +59,13 @@ let
 
   isBlockEnd = line: match blockEndRegexp line != null;
 
+  unescapeLine =
+    line:
+    let
+      m = match "([[:blank:]]*),((\\*|#\\+).*)" line;
+    in
+    if m == null then line else elemAt m 0 + elemAt m 1;
+
   go =
     acc: xs:
     let
@@ -70,7 +77,7 @@ let
     else if length st1 == 0 then
       acc
     else
-      (go (acc ++ [ st2.before ]) st2.after);
+      (go (acc ++ [ (map unescapeLine st2.before) ]) st2.after);
 
 in
 concatStringsSep "\n" (concatLists (go [ ] (effectiveTransformLines lines)))
