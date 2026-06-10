@@ -31,10 +31,14 @@ let
 
   dropUntil = import ./dropUntil.nix;
 
+  escapeRegex = replaceStrings
+    [ "\\" "+" "." "[" "]" "(" ")" "{" "}" "^" "$" "?" "*" "|" ]
+    [ "\\\\" "\\+" "\\." "\\[" "\\]" "\\(" "\\)" "\\{" "\\}" "\\^" "\\$" "\\?" "\\*" "\\|" ];
+
   blockStartRegexp =
     "[[:space:]]*\#\\+[Bb][Ee][Gg][Ii][Nn]_[Ss][Rr][Cc][[:space:]]+"
     + "("
-    + (concatStringsSep "|" languages)
+    + (concatStringsSep "|" (map escapeRegex languages))
     + ")"
     + "(([[:space:]].*)?)";
 
