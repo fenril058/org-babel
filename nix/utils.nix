@@ -14,8 +14,7 @@ rec {
 
   isHeadline = s: substring 0 1 s == "*";
 
-  getHeadlineLevel = headline:
-    stringLength (head (match genericHeadlineRegexp headline));
+  getHeadlineLevel = headline: stringLength (head (match "(\\*+).*" headline));
 
   makeSubtreeEndRegexp = outlineLevel:
     prependOptionalStars (outlineLevel - 1) "\\*[[:space:]].+";
