@@ -108,4 +108,27 @@ pkgs.lib.runTests {
 
     expected = "tagged";
   };
+
+  testTangleUnescapeCommas = {
+    expr = pkgs.lib.pipe (tangleOrgBabel { } ''
+      #+begin_src emacs-lisp
+      ,#+begin_example
+      ,* not a heading
+      (+ 1 1)
+      ,foo
+      ,#x
+      #+end_src
+    '') [
+      (split "\n")
+      (filter isString)
+    ];
+
+    expected = [
+      "#+begin_example"
+      "* not a heading"
+      "(+ 1 1)"
+      ",foo"
+      ",#x"
+    ];
+  };
 }
