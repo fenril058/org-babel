@@ -92,4 +92,20 @@ pkgs.lib.runTests {
 
     expected = "";
   };
+
+  testTangleArgExcludesUntaggedBlocks = {
+    expr = tangleOrgBabel {
+      tangleArg = "init.el";
+    } ''
+      #+begin_src emacs-lisp
+      untagged
+      #+end_src
+
+      #+begin_src emacs-lisp :tangle init.el
+      tagged
+      #+end_src
+    '';
+
+    expected = "tagged";
+  };
 }

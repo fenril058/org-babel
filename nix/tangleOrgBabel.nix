@@ -42,11 +42,7 @@ let
 
   parseParamsString' = s: if s == null then { } else parseParamsString s;
 
-  checkBlockParams =
-    attrs:
-    foldl' (acc: value: acc && value) true (
-      attrValues (mapAttrs (name: value: if name == ":tangle" then value == tangleArg else true) attrs)
-    );
+  checkBlockParams = attrs: (attrs.":tangle" or "yes") == tangleArg;
 
   isBlockStart =
     line:
