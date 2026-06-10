@@ -131,4 +131,16 @@ pkgs.lib.runTests {
       ",#x"
     ];
   };
+
+  testTangleLanguageWithSpecialChars = {
+    expr = tangleOrgBabel {
+      languages = [ "c++" ];
+    } ''
+      #+begin_src c++
+      int x;
+      #+end_src
+    '';
+
+    expected = "int x;";
+  };
 }
