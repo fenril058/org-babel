@@ -23,14 +23,14 @@ This is a fork of `emacs-twist/org-babel`.
 
 - **`master`** — a pure mirror of `upstream/master`. Do **not** commit here;
   only fast-forward it from upstream.
-- **`develop`** — personal integration branch carrying all local changes.
+- **`local`** — personal integration branch carrying all local changes.
   Rebase onto `master` when upstream moves.
 - **topic branches** (`fix/...`, `feat/...`, `docs/...`) — branched off
-  `master`, one change each, kept PR-ready for upstream. Merged into `develop`.
+  `master`, one change each, kept PR-ready for upstream. Merged into `local`.
 
 `upstream` remote: `https://github.com/emacs-twist/org-babel`.
 
-Avoid repo-wide reformatting on `develop` — it would conflict on every rebase
+Avoid repo-wide reformatting on `local` — it would conflict on every rebase
 against `master`.
 
 ## Layout
